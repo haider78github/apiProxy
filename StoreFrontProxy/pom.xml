@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+							 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+	xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  	<modelVersion>4.0.0</modelVersion>
+  
+  	<parent>
+    	<groupId>com.softech.ls360.proxy</groupId>
+    	<artifactId>LS360ProxyAPI</artifactId>
+    	<version>0.0.1</version>
+  	</parent>
+ 
+  	<artifactId>StoreFrontProxy</artifactId>
+  
+  	<name>StoreFrontProxy</name>
+  	<url>http://maven.apache.org</url>
+  
+    <dependencies>
+    
+         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
+        
+         <!-- contains the standard Log4j 2 implementation. It is the implementation you are configuring, not the API. The API 
+            requires no configuration.  
+        -->
+       	<dependency>
+	        <groupId>org.apache.logging.log4j</groupId>
+	        <artifactId>log4j-core</artifactId>
+        </dependency>
+        
+         <!-- is an adapter to support the Commons Logging API. Several libraries you can use to log against the Commons Logging API,
+            and this adapter causes Commons Logging to use Log4j 2 as its implementation.  For spring logging
+         -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jcl</artifactId>
+        </dependency>
+    	
+    	<dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+  		
+  		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+
+        <dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+		</dependency>
+		
+		<!-- Spring-ws depends on this dependency -->
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		
+		<!-- General data-binding package for Jackson (2.x): works on streaming API (core) implementation(s) -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+	
+        <dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-basics-runtime</artifactId>
+        </dependency>
+	
+    </dependencies>
+  
+  	<build>
+  		<finalName>${project.artifactId}</finalName>
+  		<plugins>
+  		
+  		   <!-- To generate Java classes from the WSDL in maven, you need the following plugin setup. This setup will generate 
+  		    	 classes for the WSDL found at the specified URL, putting those classes in the package specified in the 
+  		    	 generatePackag element(i.e hello.wsdl).  
+  		    -->
+  			<plugin>
+    			<groupId>org.jvnet.jaxb2.maven2</groupId>
+    			<artifactId>maven-jaxb2-plugin</artifactId>
+    			<configuration>
+    			
+    				<!-- forceRegenerate - If true, no up-to-date check is performed and the XJC always re-generates the sources. 
+        			     Otherwise schemas will only be recompiled if anything has changed (this is the default behavior).
+        			
+        			<forceRegenerate>false</forceRegenerate>
+    			    -->
+                	<!-- Target directory for the generated code, ${project.build.directory}/generated-sources/xjc by default -->
+        			<generateDirectory>${basedir}/src/main/java</generateDirectory>
+        			
+        			<!-- The generated classes will all be placed under this Java package (XJC's -p option), unless otherwise 
+        			      specified in the schemas. If left unspecified, the package will be derived from the schemas only.  
+        			
+        			<generatePackage>com.softech.ls360.storefront.proxy.webservice.messages.orderdetails</generatePackage>
+    			    -->
+    			    <!-- Type of input schema language. One of: DTD, XMLSCHEMA, RELAXNG, RELAXNG_COMPACT, WSDL, AUTODETECT. If 
+    			    	 unspecified, it is assumed AUTODETECT.  
+    			    -->
+        			<schemaLanguage>WSDL</schemaLanguage>
+       		 		<schemas>
+            			<schema>
+            				<fileset>  
+            				    <!-- Defaults to schemaDirectory                               
+                				<directory>${basedir}/src/main/resources/bindings</directory>  --> 
+                				<!-- Defaults to schemaIncludes                                                                
+                				<includes>                                                           
+                    				<include>bindings/binding.xml</include>                                         
+                				</includes> 
+                				 --> 
+            				</fileset>
+                			<!--<url>http://10.0.101.100/webapp/wcs/services/OrderService/wsdl/wsdl/ThreeSixtyTrainingService/ThreeSixtyTraining-OrderService.wsdl</url> -->
+            			</schema>
+        			</schemas>
+   				 </configuration>
+			</plugin>	
+			
+			<!--  uses maven-dependency-plugin to copy all dependencies to "target/lms-proxy-dependency-jars/" 
+			      folder, and defines the dependency classpath with maven-jar-plugin 
+ 			-->
+ 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+		  			<execution>
+						<configuration>
+							<includeGroupIds>
+								org.apache.logging.log4j, org.jboss.logging, javax.inject, org.springframework, wsdl4j, 
+								com.fasterxml.jackson.core, com.fasterxml.jackson.datatype
+							</includeGroupIds>
+							<outputDirectory>${project.build.directory}/sf-proxy-dependency-jars/</outputDirectory>
+						</configuration>
+		  			</execution>
+		 		</executions>
+			</plugin>
+			
+			<!-- To make jar file like a exe file, you need to define a manifest file and declare the application
+			     entry point inside via maven-jar-plugin in pom.xml. 
+			     
+			     - create executable JAR with the specified mainClass
+				 - exclude all .properties files located in src/main/resources from the JAR
+				 - add conf folder to the manifest, providing access to it from your executable JAR
+			-->
+			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-jar-plugin</artifactId>
+  				<configuration>
+					<archive>
+						<manifest>
+							<!--
+                               Configures the classpath prefix. This configuration option is
+                               used to specify that all needed libraries are found under Lms-Proxy-Dependency-jars/
+                               directory.
+                               
+                               Use “classpathPrefix” to specify folder name in which all properties will be placed.
+                           -->
+							<classpathPrefix>sf-proxy-dependency-jars/</classpathPrefix>
+							
+							<!-- Specifies the main class of the application -->
+							<mainClass>com.softech.ls360.storefront.proxy.StorefrontProxy</mainClass>
+						</manifest>
+						
+						<!-- Use “Class-Path” to specify the folder. “.” Indicate current folder, while 
+						     “propertiesFiles” specifies “propertiesFiles” folder in same directory as JAR. 
+						-->
+						<manifestEntries>
+                 			<Class-Path>sf-proxy-conf/</Class-Path>
+       					 </manifestEntries> 
+					</archive>
+  				</configuration>
+ 			</plugin>
+ 			
+ 			<!-- copy all .properties, .xml and .vm files located in src/main/resources into a conf folder in your project root. Note that this 
+ 			     step is an optional convenience for your users of the JAR. You can require the explicitly create this file in the 
+ 			     conf directory. This conf directory is effectively added to your runtime classpath via the manifest. 
+ 			-->
+ 			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-resources-plugin</artifactId>
+  				<executions>
+    				<execution>
+      					<configuration>
+        					<outputDirectory>${basedir}/target/sf-proxy-conf</outputDirectory>
+      					</configuration>
+    				</execution>
+  				</executions>
+			</plugin>			 			 				 		
+  		</plugins>
+  	</build>
+  	
+</project>

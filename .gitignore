@@ -8,5 +8,16 @@
 *.war
 *.ear
 
+LS360ProxyAPIWeb/target/
+LmsProxy/target/
+LmsApiProxy/target/
+StoreFrontProxy/target/
+
+StoreFrontProxy/.settings/
+LS360ProxyAPIWeb/.settings/
+LmsProxy/.settings/
+LmsApiProxy/.settings/
+StoreFrontProxy/.settings/
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

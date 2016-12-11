@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+							http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+	xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  	
+  	<modelVersion>4.0.0</modelVersion>
+  	
+  	<!-- In LS360ProxyAPIWeb's pom.xml file, we see this module referencing a parent POM using a set of Maven coordinates. The 
+  		 parent POM for LS360ProxyAPIWeb is identified by a groupId of com.softech.ls360.proxy, an artifactId of LS360ProxyAPI, and 
+  		 a version of 0.0.1.  
+  	
+  	-->
+  	<parent>
+    	<groupId>com.softech.ls360.proxy</groupId>
+    	<artifactId>LS360ProxyAPI</artifactId>
+    	<version>0.0.1</version>
+  	</parent>
+  
+  	<artifactId>LS360ProxyAPIWeb</artifactId>
+  	<packaging>war</packaging>
+  
+  	<name>LS360ProxyAPIWeb Maven Webapp</name>
+  	<url>http://maven.apache.org</url>
+  	
+  	<properties>
+  	    
+  	    <commons-codec.version>1.9</commons-codec.version>
+  	    <tomcat-directory-path>D:\Basit\apache-tomcat-8.0.33</tomcat-directory-path>
+  	    
+  	</properties>
+  	
+  	<dependencies>
+  	
+  	    <dependency>
+        	<groupId>com.softech.ls360.proxy</groupId>
+        	<artifactId>LS360ProxyAPIUtil</artifactId>
+        	<version>0.0.1</version>
+        </dependency>
+  	
+  		<dependency>
+        	<groupId>com.softech.ls360.proxy</groupId>
+        	<artifactId>LmsProxy</artifactId>
+        	<version>0.0.1</version>
+        </dependency>
+        
+         <dependency>
+        	<groupId>com.softech.ls360.proxy</groupId>
+        	<artifactId>LmsApiProxy</artifactId>
+        	<version>0.0.1</version>
+        </dependency>
+        
+        <dependency>
+        	<groupId>com.softech.ls360.proxy</groupId>
+        	<artifactId>StoreFrontProxy</artifactId>
+        	<version>0.0.1</version>
+        </dependency>
+        
+        <dependency>
+    		<groupId>org.apache.logging.log4j</groupId>
+    		<artifactId>log4j-web</artifactId>
+  		</dependency>
+        
+        <!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+        
+        <dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+		</dependency>
+		
+		<dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+        </dependency>
+		
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+		</dependency>
+		
+		<!-- The exclusions are necessary because the JSTL implementation defines transient dependencies on older versions of the JSP
+		     and Servlet specifications that have different Maven artifact IDs than the current versions. 
+		-->
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.servlet.jsp.jstl</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet.jsp</groupId>
+					<artifactId>jsp-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet.jsp.jstl</groupId>
+					<artifactId>jstl-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- For sending email using spring java mail -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		
+		<!-- Spring Security configuration module. -->
+		
+		<dependency>
+ 			<groupId>org.springframework.security</groupId>
+ 			<artifactId>spring-security-web</artifactId>
+ 		</dependency>
+		
+ 		<dependency>
+ 			<groupId>org.springframework.security</groupId>
+ 			<artifactId>spring-security-config</artifactId>
+ 		</dependency>
+		  
+ 		<dependency>
+        	<groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+        </dependency>
+		
+		<!-- Java Mail API
+    	    The javax.mail-api artifact is only good for compiling against. You actually need to run code, so you 
+    	    need a complete implementation of JavaMail. This is also needed along with the spring-context-support for emails
+    	-->
+    	<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+		</dependency>
+		
+		<!-- The JSR-303 Bean Validation API library. -->
+        <dependency>
+    	    <groupId>javax.validation</groupId>
+    	    <artifactId>validation-api</artifactId>
+        </dependency>
+        
+        <!-- Spring object-to-XML mapping module. -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		 
+		<!-- Spring Testing -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		
+		<!-- Apache HTTP Components project. The HTTP client library will be used for RESTful-WS invocation. -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		
+		<!-- The Apache Commons Collections package contains types that extend and augment the Java Collections Framework. -->
+		<dependency>
+      		<groupId>org.apache.commons</groupId>
+      		<artifactId>commons-collections4</artifactId>
+    	</dependency>
+    	
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hibernate5</artifactId>
+		</dependency>
+		
+	</dependencies>
+  	
+  	<build>
+    	<finalName>${project.artifactId}</finalName>
+    	<plugins>
+    		<plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+            	<artifactId>maven-war-plugin</artifactId>
+            	<version>${maven-war-plugin.version}</version>
+            	<configuration>
+             		<warName>${project.artifactId}</warName>
+             		<outputDirectory>${tomcat-directory-path}\webapps</outputDirectory>
+            	</configuration>
+       		</plugin>
+       		
+       		<!--  
+       		<plugin>
+            	<groupId>org.hibernate.orm.tooling</groupId>
+            	<artifactId>hibernate-enhance-maven-plugin</artifactId>
+            	<version>${hibernate-entitymanager.version}</version>
+            	<executions>
+                	<execution>
+                    	<configuration>
+                        	<failOnError>false</failOnError>
+                        	<enableLazyInitialization>true</enableLazyInitialization>
+                        	<enableDirtyTracking>true</enableDirtyTracking>
+                        	<enableAssociationManagement>true</enableAssociationManagement>
+                        	<enableExtendedEnhancement>false</enableExtendedEnhancement>
+                    	</configuration>
+                    	<goals>
+                        	<goal>enhance</goal>
+                    	</goals>
+                	</execution>
+           	 	</executions>
+        	</plugin>
+        	-->
+    	</plugins>
+  	</build>
+</project>
